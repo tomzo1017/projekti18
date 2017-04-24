@@ -1,0 +1,64 @@
+﻿Harjoitustyö: Etäisyysmittari käyttämällä JavaScript-kirjastoa Leaflet.
+
+
+"Mainos"
+
+Leaflet on JavaScript-kirjasto, jonka avulla voi liittää interaktiivisia karttoja omalle nettisivulle. Kirjasto on kevyt, tehokas, helppokäyttöinen, ja sitä voi myös käyttää mobiililaitteilla. Kirjasto on yhteensopiva kaikkien yleisten selainten kanssa ja hyödyntää HTML5:n ja CSS3:n ominaisuuksia. Sitä voi laajentaa plugineilla ja sillä on hyvin dokumentoitu API.
+
+Leafletin avulla voi näyttää ja käsitellä karttojen dataa, mutta se ei itsessään toimita dataa, vaan käyttäjän täytyy hankkia se itse. Leaflet voi käyttää useiden toimittajien karttalaattoja (map tiles), kunhan noudattaa niiden käyttöehtoja. Esimerkiksi OpenStreetMap on yksi paljon käytetty datalähde.
+
+Leaflet mahdollistaa laattojen käytön, merkit, ponnahdusikkunat, vektorikerrokset (viivat, ympyrät, suorakulmiot), kuvat, tuen GeoJSON-formaatille maantieteellisten tietorakenteiden koodaamiseen, sekä kartan interaktiot, kuten raahaamisen, vierittämisen, zoomauksen ja tapahtumat.
+
+Leaflet on yksi suosituimmista avoimen lähdekoodin (BSD-lisenssi) JavaScript-kirjastoista. Sivustolla www.javascripting.com sillä on 97% luokitus. Kirjastoa kehittää Vladimir Agafonkin ja muut avustajat.
+
+
+Leaflet-kirjaston käyttäminen
+
+Leafletin käyttäminen aloitetaan liittämällä HTML-tiedoston head-osioon Leafletin CSS-tyylit ja Leafletin JavaScript-kirjasto. Tässä ne haetaan CDN-palvelusta.
+
+	<!-- Leaflet CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+
+	<!-- Leaflet JavaScript -->
+	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+
+HTML-tiedoston body-osiossa pitää olla <div>-elementti karttaa varten. Sille määritelty korkeus on erillisessä CSS-tiedostossa.
+
+	<div id="mapid"></div>
+
+Omaan JavaScript-tiedostoon lisätään vielä seuraava skripti:
+
+	// Alusta kartta ja näkymän koordinaatit ja zoomaustaso
+	var mymap = L.map('mapid').setView([60.451, 22.266], 12);
+	
+	// Luo laattakerros (tile layer) ja attribuutio
+	var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+	var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+	
+	L.tileLayer(osmUrl, { 
+		minZoom: 8, 
+		maxZoom: 16, 
+		attribution: osmAttrib
+	}).addTo(mymap);
+	
+
+
+Etäisyysmittarin toiminta ja omat kokemukset
+
+Etäisyysmittari perustuu koordinaattitaulukkoon, johon lisätään koordinaatti aina kun käyttäjä klikkaa kartalla. Kartalle piirretään viiva (polyline) tämän taulukon perusteella. Etäisyys lasketaan Leafletin distanceTo-metodin avulla ja sijoitetaan sivun tekstikenttään. Myös koordinaattitaulukon sisältö näytetään sivulla. Ensimmäisen käyttäjän valitseman karttapisteen kohdalle piirretään merkki (marker). Sivulla on kaksi nappia, joista toinen poistaa viimeisen karttapisteen ja toinen poistaa kaikki pisteet. Näitä käytettäessä kartan ja etäisyyden tiedot päivitetään. Jos kartalla ei ole pisteitä, eli taulukossa ei ole koordinaatteja, napit ovat pois käytöstä.
+
+Leaflet-kirjasto on mielestäni toimiva ja suhteellisen helppokäyttöinen. Itse olisin toivonut enemmän käyttöesimerkkejä sivuston sinänsä hyvän "Leaflet Quick Start Guide" -sivun lisäksi. Esimerkiksi sivulla ei kerrota miten käytetään OpenStreetMap dataa. Tieto löytyi kuitenkin Switch2OSM-sivustolta. Muutama asia jäi vielä mietityttämään:
+1. Kartan zoomaus tuplaklikkaamalla ei toimi aivan täydellisesti, koska samalla tapahtuu click-tapahtumaan liitetty toiminnallisuus.
+2. Olisiko mahdollista lisätä jokaiseen klikkaukseen oma marker? Miten ne poistetaan yksitellen tai kaikki kerralla?
+3. Ehkä sivulle voisi lisätä mahdollisuuden käyttää etäisyyden yksikkönä myös kilometrejä.
+
+----------
+
+Kotisivu:
+http://leafletjs.com/
+
+GitHub:
+https://github.com/Leaflet/Leaflet
+
+Switch2OSM:
+https://switch2osm.org/using-tiles/getting-started-with-leaflet/

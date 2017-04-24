@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Etäisyysmittari</title>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Linkki omaan CSS-tiedostoon -->
+<link rel="stylesheet" href="css/css.css" />
+
+<!-- Linkki omaan JavaScript-tiedostoon -->
+<script src="js/javascript.js"></script>
+
+</head>
+
+<body>
+
+<div id="mapid"></div>
+
+<div id="wrapper">
+	<form name="lomake" id="lomake">
+
+		<div>
+			<p>
+			<label for="etaisyys" class="label">Etäisyys:</label>
+			<input type="text" name="etaisyys" id="etaisyys" size="20" readonly>m
+			</p>
+		</div>
+
+		<div>
+			<button type="button" class="button button1" id="poistaViimeinen">Poista viimeinen</button>
+			<button type="button" class="button button2" id="poistaKaikki">Poista kaikki</button>
+			<button type="button" class="button button3" id="Turku">Turku</button>
+			<button type="button" class="button button4" id="Helsinki">Helsinki</button>
+			<button type="button" class="button button5" id="Tampere">Tampere</button>
+			<button type="button" class="button button6" id="Espoo">Espoo</button>
+		</div>
+
+	</form>
+
+
+	<div id="koordinaattiLista"></div>
+</div>
+
+</body>
+</html>
